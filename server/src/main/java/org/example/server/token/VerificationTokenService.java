@@ -15,7 +15,7 @@ public class VerificationTokenService {
         this.verificationTokenRepository = verificationTokenRepository;
     }
 
-    @Transactional(rollbackOn =  Exception.class)
+    @Transactional(rollbackOn = Exception.class)
     public void saveVerificationToken(VerificationToken verificationToken) {
         verificationTokenRepository.save(verificationToken);
     }
@@ -28,7 +28,7 @@ public class VerificationTokenService {
         return verificationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
     }
 
-    @Transactional(rollbackOn =  Exception.class)
+    @Transactional(rollbackOn = Exception.class)
     public void deleteUserToken(User user) {
         verificationTokenRepository.deleteAllByUser(user);
     }

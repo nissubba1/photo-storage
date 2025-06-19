@@ -1,12 +1,8 @@
 package org.example.server.user;
 
 import jakarta.transaction.Transactional;
-import org.example.server.dto.LoginRequest;
 import org.example.server.token.VerificationToken;
 import org.example.server.token.VerificationTokenService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

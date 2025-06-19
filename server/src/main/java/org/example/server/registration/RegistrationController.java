@@ -1,6 +1,5 @@
 package org.example.server.registration;
 
-import org.apache.coyote.Response;
 import org.example.server.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
