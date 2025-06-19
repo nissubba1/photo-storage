@@ -54,7 +54,7 @@ public class User extends Auditing implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @NotNull
-    private UserRole role;
+    private UserRole role = UserRole.ROLE_USER;
 
     @Column(name = "is_locked")
     private Boolean locked = false;
@@ -65,7 +65,7 @@ public class User extends Auditing implements UserDetails {
     public User() {
     }
 
-    public User(Long userId, String firstName, String lastName, String username, String email, String password, UserRole role) {
+    public User(Long userId, String firstName, String lastName, String username, String email, String password) {
         super();
         this.userId = userId;
         this.firstName = firstName;
@@ -73,7 +73,6 @@ public class User extends Auditing implements UserDetails {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
     }
 
     public Long getUserId() {
