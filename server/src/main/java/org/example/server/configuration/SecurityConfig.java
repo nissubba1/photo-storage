@@ -27,7 +27,9 @@ public class SecurityConfig {
                                 ("/api/v1.1/user/register"),
                                 ("/api/v1.1/user/login"),
                                 ("/api/v1.1/user/username/"),
-                                ("/api/v1.1/user/register/confirm")
+                                ("/api/v1.1/user/register/confirm"),
+                                ("/api/upload_photo/**"),
+                                ("//api/v1.1/user/gallery/**")
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(AbstractHttpConfigurer::disable)

@@ -2,14 +2,17 @@ package org.example.server.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.example.server.audit.Auditing;
+import org.example.server.upload.Photo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -62,6 +65,10 @@ public class User extends Auditing implements UserDetails {
     @Column(name = "is_enabled")
     private Boolean enabled = false;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Photo> photos = new ArrayList<>();
+
     public User() {
     }
 
@@ -113,6 +120,14 @@ public class User extends Auditing implements UserDetails {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 
     @Override

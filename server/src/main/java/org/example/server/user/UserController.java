@@ -57,4 +57,15 @@ public class UserController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
+    @GetMapping("/gallery/{username}")
+    public ResponseEntity<?> getUserPhotos(@PathVariable String username) {
+        try {
+            return ResponseEntity.ok().body(userService.findUserPhotos(username));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+    }
 }

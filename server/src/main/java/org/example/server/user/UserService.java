@@ -3,6 +3,9 @@ package org.example.server.user;
 import jakarta.transaction.Transactional;
 import org.example.server.token.VerificationToken;
 import org.example.server.token.VerificationTokenService;
+import org.example.server.upload.Photo;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -76,6 +79,21 @@ public class UserService implements UserDetailsService {
 
     public int enableUserAccount(String username) {
         return userRepository.enableAccount(username);
+    }
+
+    public User getCurrentAuthenticatedUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new IllegalStateException("No authenticated user found");
+        }
+        String username = authentication.getName();
+        return userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found"));
+    }
+
+    public List<Photo> findUserPhotos(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found in photo"));
+        return user.getPhotos();
     }
 
     @Override
