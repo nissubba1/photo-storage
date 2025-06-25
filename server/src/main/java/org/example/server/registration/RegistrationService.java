@@ -35,7 +35,7 @@ public class RegistrationService {
 
         String token = userService.registerUser(user);
 
-        String verificationLink = "http://localhost:8080/api/v1.1/user/register/confirm?token=" + token;
+        String verificationLink = "http://localhost:8080/api/user/register/confirm?token=" + token;
         try {
             emailSender.sendEmail(user.getEmail(), emailTemplate.buildEmail(user.getFirstName(), verificationLink));
             System.out.println("Confirmation email send");
