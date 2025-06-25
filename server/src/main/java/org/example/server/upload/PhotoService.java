@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -16,6 +17,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -70,6 +72,24 @@ public class PhotoService {
         }
     }
 
+    @Transactional(rollbackOn = Exception.class)
+    public String deleteCurrentUserPhoto(String username, Long photoId) {
+        User user = userService.findUserUsingUsername(username);
+        Photo photo = photoRepository.findById(photoId).orElseThrow(() -> new IllegalArgumentException("No photo found with id: " + photoId));
+
+        // check the ownership
+        if (!photo.getUser().getUserId().equals(user.getUserId())) {
+            throw new SecurityException("You are not allowed to remove photos from your current user");
+        }
+
+        s3Client.deleteObject(DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(photo.getS3Key())
+                .build());
+        photoRepository.delete(photo);
+        return photo.getFileName() + ": Deleted Successfully";
+    }
+
     public String generatePresignedUrl(String s3Key) {
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
@@ -82,5 +102,10 @@ public class PhotoService {
                 .build();
 
         return s3Presigner.presignGetObject(presignRequest).url().toString();
+    }
+
+    public List<Photo> findUserGallery(String username) {
+        User user = userService.findUserUsingUsername(username);
+        return user.getPhotos();
     }
 }

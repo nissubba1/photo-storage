@@ -23,17 +23,18 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests.requestMatchers(
-                                ("/api/v1.1/user"),
-                                ("/api/v1.1/user/register"),
-                                ("/api/v1.1/user/login"),
-                                ("/api/v1.1/user/username/"),
-                                ("/api/v1.1/user/register/confirm"),
-                                ("/api/upload_photo/**"),
-                                ("//api/v1.1/user/gallery/**")
+                                ("/api/user"),
+                                ("/api/user/register"),
+                                ("/api/user/login"),
+                                ("/api/user/username/"),
+                                ("/api/user/register/confirm"),
+                                ("/api/photo-service/**"),
+                                ("/api/photo-service/gallery/**"),
+                                ("/api/change-password/**")
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(AbstractHttpConfigurer::disable)
-                .logout(logout -> logout.logoutUrl("/api/v*/user/logout").permitAll());
+                .logout(logout -> logout.logoutUrl("/api/user/logout").permitAll());
         return http.build();
     }
 

@@ -91,10 +91,16 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found"));
     }
 
-    public List<Photo> findUserPhotos(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found in photo"));
-        return user.getPhotos();
+    @Transactional(rollbackOn = Exception.class)
+    public String updatePassword(String username, String newPassword) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalStateException("User not found: Cannot update password"));
+
+        String hashedPassword = bCryptPasswordEncoder.encode(newPassword);
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+        return "Password changed successfully";
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

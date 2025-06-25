@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1.1/user")
+@RequestMapping("api/user")
 public class UserController {
     private final UserService userService;
     private final AuthService authService;
@@ -58,10 +58,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/gallery/{username}")
-    public ResponseEntity<?> getUserPhotos(@PathVariable String username) {
+    @PostMapping("/change-password/{username}")
+    public ResponseEntity<String> changeUserPassword(@PathVariable String username, String newPassword) {
         try {
-            return ResponseEntity.ok().body(userService.findUserPhotos(username));
+            return ResponseEntity.ok().body(userService.updatePassword(username, newPassword));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
