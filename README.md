@@ -187,8 +187,6 @@ The frontend is still under development.
 
 ---
 
----
-
 ## 🙏 Thank You
 
 Thank you for taking the time to view my project!  
