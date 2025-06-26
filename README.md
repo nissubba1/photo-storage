@@ -109,6 +109,7 @@ I created this project because I wanted a secure way to upload and view my photo
 - View User’s Photo Gallery
 - Database Integration with PostgreSQL
 - Secure and Unique Pre-signed URLs for Photo Access
+- Token generation, verification, and deletion
 
 ---
 
@@ -196,5 +197,5 @@ This has been a rewarding learning experience and a practical deep dive into bac
 If you have any **feedback, suggestions, or improvements**, feel free to open an issue or create a pull request.  
 I'm always open to learning and growing as a developer.
 
-By Nishan Subba
+By @nissubba1
 ---
