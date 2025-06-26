@@ -19,21 +19,11 @@ public class UserController {
         this.authService = authService;
     }
 
+    // for admin
     @GetMapping
     public ResponseEntity<List<User>> getAllUser() {
         return ResponseEntity.ok().body(userService.findAllUsers());
     }
-
-//    @PostMapping("/register")
-//    public ResponseEntity<String> saveUser(@Valid @RequestBody User user) {
-//        try {
-//            return ResponseEntity.ok().body(userService.registerUser(user));
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.internalServerError().body(e.getMessage());
-//        }
-//    }
 
     @GetMapping("/username/{username}")
     public ResponseEntity<?> getUserByUsername(@PathVariable String username) {

@@ -44,25 +44,31 @@ export default function SignIn() {
 
     }
     return (
-        <section className={"p-10 rounded-md bg-white"}>
+        <section className={"p-8 rounded-md bg-white"}>
             <form action=""
-                  className={"flex flex-col justify-center items-center gap-10 text-black"}
+                  className={"container flex flex-col justify-center items-center gap-5 text-black w-[200px]"}
                   method={"POST"}
                   onSubmit={handleSubmit}
             >
-                <fieldset className={"flex flex-col gap-3"}>
+                <fieldset className={"flex flex-col gap-3 w-full"}>
+                    <div className={"text-3xl font-bold"}>
+                        <h3>Log In</h3>
+                    </div>
                     <div className={"flex flex-col"}>
-                        <label htmlFor="username">Username</label>
-                        <input name={"username"} type="text" id={"username"} className={"border rounded-sm"}
+                        <label htmlFor="username"></label>
+                        <input name={"username"} type="text" id={"username"}
+                               className={"border rounded-sm p-2 text-xs border-gray-300"}
                                value={formData.username}
                                onChange={handleChange}
+                               placeholder={"Username"}
                         required/>
                     </div>
                     <div className={"flex flex-col"}>
-                        <label htmlFor="password">Password</label>
-                        <input name={"password"} type="password" id={"password"} className={"border rounded-sm"}
+                        <label htmlFor="password"></label>
+                        <input name={"password"} type="password" id={"password"} className={"border rounded-sm p-2 text-xs border-gray-300"}
                                value={formData.password}
                                onChange={handleChange}
+                               placeholder={"Password"}
                         required/>
                     </div>
                 </fieldset>
