@@ -10,6 +10,9 @@ I created this project because I wanted a secure way to upload and view my photo
 
 ---
 
+## 🔍 Description
+Built a secure backend system to upload, manage, and view photos stored in the cloud. Integrated AWS S3 for scalable cloud storage and implemented Spring Security for authentication, password hashing, and email-based account verification. Used pre-signed S3 URLs to provide secure, temporary access to private photos without exposing them publicly. Developed a RESTful API to support features like user registration, login, password change, photo upload/delete, and gallery retrieval. Emails are templated with Thymeleaf and tested using MailDev. The system uses PostgreSQL 17 for relational data storage and was tested extensively with Postman. Frontend is being developed separately with React and TypeScript.
+
 ## 🚀 What I Learned
 
 - Spring Security (Authentication, Authorization, Password Hashing)
