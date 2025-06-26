@@ -7,7 +7,7 @@ import App from "./App.tsx"
 const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
     <StrictMode>
-        <div className={"container w-full"}>
+        <div className={"container max-w-5xl border rounded-md bg-amber-600 p-10"}>
             <App />
         </div>
 

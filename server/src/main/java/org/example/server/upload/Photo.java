@@ -28,8 +28,8 @@ public class Photo {
     @Column(nullable = false, unique = true, length = 1024)
     private String s3Key;
 
-    @Column(nullable = false, length = 2048)
-    private String url;
+//    @Column(nullable = false, length = 2048)
+//    private String url;
 
     @Column(nullable = false, updatable = false, name = "upload_time")
     private LocalDateTime uploadTime = LocalDateTime.now();
@@ -41,13 +41,19 @@ public class Photo {
 
     public Photo() {
     }
-
-    public Photo(User user, String fileName, String s3Key, String url) {
+    public Photo(User user, String fileName, String s3Key) {
         this.user = user;
         this.fileName = fileName;
         this.s3Key = s3Key;
-        this.url = url;
     }
+
+
+//    public Photo(User user, String fileName, String s3Key, String url) {
+//        this.user = user;
+//        this.fileName = fileName;
+//        this.s3Key = s3Key;
+//        this.url = url;
+//    }
 
     public Long getPhotoId() {
         return photoId;
@@ -81,13 +87,13 @@ public class Photo {
         this.s3Key = s3Key;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
+//    public String getUrl() {
+//        return url;
+//    }
+//
+//    public void setUrl(String url) {
+//        this.url = url;
+//    }
 
     public LocalDateTime getUploadTime() {
         return uploadTime;

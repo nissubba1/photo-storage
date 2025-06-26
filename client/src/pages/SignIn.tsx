@@ -1,7 +1,7 @@
 import {type NavigateFunction, useNavigate} from "react-router-dom";
 import * as React from "react";
 import {useState} from "react";
-import type {LoginRequest, LoginResponse} from "../types/types.ts";
+import type {LoginRequest} from "../types/types.ts";
 
 export default function SignIn() {
     const [formData, setFormData] = useState<LoginRequest>({
@@ -46,7 +46,7 @@ export default function SignIn() {
     return (
         <section className={"p-10 rounded-md bg-white"}>
             <form action=""
-                  className={"flex flex-col justify-center items-center gap-10"}
+                  className={"flex flex-col justify-center items-center gap-10 text-black"}
                   method={"POST"}
                   onSubmit={handleSubmit}
             >

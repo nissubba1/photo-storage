@@ -2,6 +2,7 @@ package org.example.server.upload;
 
 import jakarta.transaction.Transactional;
 import org.example.server.aws.AwsS3Config;
+import org.example.server.dto.PhotoResponse;
 import org.example.server.user.User;
 import org.example.server.user.UserService;
 import org.springframework.stereotype.Service;
@@ -58,12 +59,12 @@ public class PhotoService {
             );
 
 //            String url = "https://" + bucketName + ".s3.amazonaws.com/" + s3Key;
-            String url = generatePresignedUrl(s3Key);
+//            String url = generatePresignedUrl(s3Key);
 
             Photo photo = new Photo();
             photo.setFileName(originalFileName);
             photo.setS3Key(s3Key);
-            photo.setUrl(url);
+//            photo.setUrl(url);
             photo.setUser(user);
             return photoRepository.save(photo);
 
@@ -104,8 +105,13 @@ public class PhotoService {
         return s3Presigner.presignGetObject(presignRequest).url().toString();
     }
 
-    public List<Photo> findUserGallery(String username) {
+    public List<PhotoResponse> findUserGallery(String username) {
         User user = userService.findUserUsingUsername(username);
-        return user.getPhotos();
+        List<Photo> photos = user.getPhotos();
+
+        return photos.stream().map(photo -> new PhotoResponse(
+                photo.getFileName(),
+                generatePresignedUrl(photo.getS3Key())
+        )).toList();
     }
 }
